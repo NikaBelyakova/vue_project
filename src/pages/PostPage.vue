@@ -183,7 +183,7 @@ export default {
 
     .page__wrapper {
         display: flex;
-        my: 15px;
+        margin-top: 15px;
     }
 
     .page {

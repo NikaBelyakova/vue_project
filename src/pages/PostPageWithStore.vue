@@ -7,21 +7,23 @@
             <my-button @click="$store.commit('decrementLikes')">Дизлайк</my-button>
         </div> -->
         <h1>Страница с постами</h1>
-        <!-- <my-input
+        <my-input
         v-focus
-        v-model="searchQuery"
+        :model-value="searchQuery"
+        @update:model-value="setSearchQuery"
         placeholder="Поиск..."
-        /> -->
+        />
         <div class="app__btns">
             <my-button
                 @click="showDialog"
             >
                 Создать пост
             </my-button>
-            <!-- <my-select
-            v-model="selectedSort"
+            <my-select
+            :model-value="selectedSort"
+            @update:model-value="setSelectedSort"
             :options="sortOptions"
-            /> -->
+            />
         </div>
         <my-dialog v-model:show="dialogVisible">
             <post-form
@@ -34,7 +36,7 @@
             v-if="!isPostLoading"
         /> 
         <div class="loader" v-else></div>
-        <div v-intersection="loadMorePost" class="observer"></div>
+        <div v-intersection="loadMorePosts" class="observer"></div>
         <div class="page__wrapper">
             <div
             v-for="pageNumber in totalPages"
@@ -75,7 +77,9 @@ export default {
     },
     methods: {
         ...mapMutations({
-            setPage: 'post/setPage'
+            setPage: 'post/setPage',
+            setSearchQuery: 'post/setSearchQuery',
+            setSelectedSort: 'post/setSelectedSort',
         }),
         ...mapActions ({
             loadMorePosts: 'post/loadMorePosts',
